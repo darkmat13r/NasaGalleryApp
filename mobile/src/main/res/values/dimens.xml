@@ -1,0 +1,4 @@
+<resources>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="gallery_explore_image_height">220dp</dimen>
+</resources>
