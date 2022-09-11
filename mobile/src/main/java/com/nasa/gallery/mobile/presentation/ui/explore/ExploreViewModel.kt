@@ -1,4 +1,4 @@
-package com.nasa.mobile.ui.explore
+package com.nasa.gallery.mobile.presentation.ui.explore
 
 import androidx.lifecycle.ViewModel
 

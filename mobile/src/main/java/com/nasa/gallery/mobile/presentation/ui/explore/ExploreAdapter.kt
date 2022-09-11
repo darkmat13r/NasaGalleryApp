@@ -1,4 +1,4 @@
-package com.nasa.mobile.ui.explore
+package com.nasa.gallery.mobile.presentation.ui.explore
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

@@ -1,4 +1,4 @@
-package com.nasa.mobile
+package com.nasa.gallery.mobile.presentation.ui.main
 
 import android.os.Bundle
 import com.google.android.material.snackbar.Snackbar

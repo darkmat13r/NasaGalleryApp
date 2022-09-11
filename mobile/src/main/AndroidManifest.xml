@@ -8,10 +8,10 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:name="androidx.multidex.MultiDexApplication"
+        android:name=".NasaGalleryApplication"
         android:theme="@style/Theme.NasaGallery">
         <activity
-            android:name="com.nasa.mobile.MainActivity"
+            android:name=".presentation.ui.main.MainActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.NasaGallery">

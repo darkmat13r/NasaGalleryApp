@@ -1,4 +1,4 @@
-package com.nasa.mobile.bindings
+package com.nasa.gallery.mobile.bindings
 
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
