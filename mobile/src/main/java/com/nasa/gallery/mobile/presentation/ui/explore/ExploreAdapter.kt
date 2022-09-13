@@ -2,11 +2,24 @@ package com.nasa.gallery.mobile.presentation.ui.explore
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.ViewHolder
+import com.nasa.gallery.mobile.data.model.SpaceImage
 import com.nasa.gallery.mobile.databinding.ItemExploreBinding
 
-class ExploreAdapter : RecyclerView.Adapter<ExploreAdapter.ViewHolder>(){
+class ExploreAdapter() : ListAdapter<SpaceImage, ExploreAdapter.ViewHolder>(ExploreAdapter.DiffUtilCallback()){
+
+    private class DiffUtilCallback : DiffUtil.ItemCallback<SpaceImage>(){
+        override fun areItemsTheSame(oldItem: SpaceImage, newItem: SpaceImage): Boolean {
+            return oldItem.title == newItem.title
+        }
+
+        override fun areContentsTheSame(oldItem: SpaceImage, newItem: SpaceImage): Boolean {
+            return oldItem == newItem
+        }
+
+    }
     class ViewHolder(val binding : ItemExploreBinding) : RecyclerView.ViewHolder(binding.root) {
 
     }
@@ -15,13 +28,12 @@ class ExploreAdapter : RecyclerView.Adapter<ExploreAdapter.ViewHolder>(){
         return ViewHolder(ItemExploreBinding.inflate(LayoutInflater.from(parent.context), parent, false))
     }
 
-    override fun getItemCount(): Int {
-        return 10
-    }
-
-    val images = arrayListOf("https://apod.nasa.gov/apod/image/1912/M94_Hubble_960.jpg", "https://apod.nasa.gov/apod/image/1912/M27_Mazlin_960.jpg", "https://apod.nasa.gov/apod/image/1912/ElectricMilkyWay_Pedretti_1080.jpg")
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.binding.imageUrl = images.get(position%images.count())
+        holder.binding.imageUrl = currentList[position].url
+    }
+
+    fun setItems(spaceImages: List<SpaceImage>){
+        submitList(spaceImages)
     }
 }
