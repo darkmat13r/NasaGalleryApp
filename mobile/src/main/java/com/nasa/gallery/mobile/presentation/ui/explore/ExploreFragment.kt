@@ -1,25 +1,27 @@
 package com.nasa.gallery.mobile.presentation.ui.explore
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.databinding.BindingAdapter
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.FragmentNavigatorExtras
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.LayoutManager
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.nasa.gallery.mobile.R
 import com.nasa.gallery.mobile.data.model.SpaceImage
 import com.nasa.gallery.mobile.databinding.FragmentExploreBinding
-import com.nasa.gallery.mobile.result.succeeded
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class ExploreFragment : Fragment() {
 
     companion object {
+        private val TAG = ExploreFragment::class.java.simpleName
         fun newInstance() = ExploreFragment()
     }
 
@@ -30,23 +32,39 @@ class ExploreFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding =  FragmentExploreBinding.inflate(inflater, container, false)
+        binding = FragmentExploreBinding.inflate(inflater, container, false)
+        binding.viewModel = viewModel
+        binding.lifecycleOwner = viewLifecycleOwner
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        mExploreAdapter = ExploreAdapter()
-
-    }
-
-    @BindingAdapter("spaceImages")
-    fun bindSpaceImages( recyclerView: RecyclerView, spaceImages : List<SpaceImage>){
-        recyclerView.apply {
-            adapter =  mExploreAdapter
-            mExploreAdapter.setItems(spaceImages)
-
+        mExploreAdapter = ExploreAdapter().apply {
+            onSelect = { spaceImage, imageView ->
+                findNavController().navigate(R.id.nav_space_detail_fragment, bundleOf( SpaceImage::class.java.simpleName to spaceImage.url), null, FragmentNavigatorExtras(
+                    imageView to getString(R.string.transition_space_image)
+                ))
+            }
         }
+        binding.adapter = mExploreAdapter
+        lifecycleScope.launchWhenStarted {
+            viewModel.state.collect {
+                binding.state = it
+            }
+        }
+    }
+}
+
+@BindingAdapter("spaceImages", "exploreAdapter")
+fun bindSpaceImages(
+    recyclerView: RecyclerView,
+    spaceImages: List<SpaceImage>?,
+    exploreAdapter: ExploreAdapter?
+) {
+    recyclerView.apply {
+        adapter = exploreAdapter
+        exploreAdapter?.setItems(spaceImages ?: emptyList())
     }
 }
 

@@ -1,6 +1,7 @@
 package com.nasa.gallery.mobile.result
 
 import androidx.lifecycle.MutableLiveData
+import com.nasa.gallery.mobile.result.Result.Success
 import kotlinx.coroutines.flow.MutableStateFlow
 
 /**
@@ -21,7 +22,6 @@ sealed class Result<out R> {
         }
     }
 }
-
 /**
  * `true` if [Result] is of type [Success] & holds non-null [Success.data].
  */

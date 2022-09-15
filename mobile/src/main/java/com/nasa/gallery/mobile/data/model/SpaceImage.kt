@@ -1,11 +1,14 @@
 package com.nasa.gallery.mobile.data.model
 
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import androidx.annotation.Keep
 import com.google.gson.annotations.Expose
+import kotlinx.parcelize.Parcelize
 
 @Keep
+@Parcelize
 data class SpaceImage(
     @SerializedName("copyright")
     @Expose
@@ -31,4 +34,4 @@ data class SpaceImage(
     @SerializedName("url")
     @Expose
     val url: String // https://apod.nasa.gov/apod/image/1912/M94_Hubble_960.jpg
-)
+) : Parcelable

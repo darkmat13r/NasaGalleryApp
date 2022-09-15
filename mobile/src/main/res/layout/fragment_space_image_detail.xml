@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <import type="com.nasa.gallery.mobile.presentation.ui.detail.SpaceImageDetailViewModel.DetailViewState"/>
+        <variable
+            name="url"
+            type="String" />
+        <variable
+            name="state"
+            type="DetailViewState" />
+
+        <variable
+            name="adapter"
+            type="com.nasa.gallery.mobile.presentation.ui.detail.DetailAdapter" />
+
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".presentation.ui.detail.SpaceImageDetailFragment">
+
+       <androidx.appcompat.widget.AppCompatImageView
+           android:layout_width="match_parent"
+           android:layout_height="match_parent"
+           android:loadFromUrl="@{state instanceof DetailViewState.InitialImage ? ((DetailViewState.InitialImage) state).url : null}"
+           android:transitionName="@string/transition_space_image"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            detailsAdapter="@{adapter}"
+            tools:itemCount="3"
+            tools:listitem="@layout/item_image_detail"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            snapTo="@{state instanceof DetailViewState.Content ? ((DetailViewState.Content) state).currentIndex : 0}"
+            spaceImages="@{state instanceof DetailViewState.Content ? ((DetailViewState.Content) state).data : null}"/>
+
+
+    </FrameLayout>
+</layout>

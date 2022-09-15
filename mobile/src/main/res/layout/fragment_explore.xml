@@ -5,21 +5,51 @@
 
     <data>
         <import type="com.nasa.gallery.mobile.result.Result"/>
+        <import type="java.util.List"/>
+        <import type="com.nasa.gallery.mobile.data.model.SpaceImage"/>
+        <import type="com.nasa.gallery.mobile.presentation.ui.explore.ExploreViewModel.ExploreState"/>
+        <variable
+            name="adapter"
+            type="com.nasa.gallery.mobile.presentation.ui.explore.ExploreAdapter" />
+        <variable
+            name="state"
+            type="ExploreState" />
         <variable
             name="viewModel"
             type="com.nasa.gallery.mobile.presentation.ui.explore.ExploreViewModel" />
-
+        <variable
+            name="testString"
+            type="String" />
     </data>
 
-    <FrameLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".presentation.ui.explore.ExploreFragment">
+        android:fillViewport="true">
 
-        <androidx.recyclerview.widget.RecyclerView
+        <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:spanCount="2"
-            app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager" />
-    </FrameLayout>
+            android:orientation="vertical"
+            android:padding="16dp"
+            tools:context=".presentation.ui.explore.ExploreFragment">
+            <ProgressBar
+                show="@{state instanceof ExploreState.Loading}"
+                app:indicatorColor="@android:color/white"
+                android:layout_width="wrap_content"
+                android:layout_gravity="center"
+                android:layout_height="wrap_content"/>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/list"
+                spaceImages="@{state instanceof ExploreState.Content ? ((ExploreState.Content) state).data : null}"
+                exploreAdapter="@{adapter}"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                app:spanCount="2"
+                android:layoutAnimation="@anim/layout_animation"
+                tools:listitem="@layout/item_explore"
+                app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </androidx.core.widget.NestedScrollView>
 </layout>
