@@ -21,25 +21,51 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".presentation.ui.detail.SpaceImageDetailFragment">
+        android:fitsSystemWindows="true">
 
-       <androidx.appcompat.widget.AppCompatImageView
-           android:layout_width="match_parent"
-           android:layout_height="match_parent"
-           android:loadFromUrl="@{state instanceof DetailViewState.InitialImage ? ((DetailViewState.InitialImage) state).url : null}"
-           android:transitionName="@string/transition_space_image"/>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/list"
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            detailsAdapter="@{adapter}"
-            tools:itemCount="3"
-            tools:listitem="@layout/item_image_detail"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            snapTo="@{state instanceof DetailViewState.Content ? ((DetailViewState.Content) state).currentIndex : 0}"
-            spaceImages="@{state instanceof DetailViewState.Content ? ((DetailViewState.Content) state).data : null}"/>
+            tools:context=".presentation.ui.detail.SpaceImageDetailFragment">
 
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:loadFromUrl="@{state instanceof DetailViewState.InitialImage ? ((DetailViewState.InitialImage) state).url : null}"
+                android:transitionName="@string/transition_space_image"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                detailsAdapter="@{adapter}"
+                tools:itemCount="3"
+                tools:listitem="@layout/item_image_detail"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                snapTo="@{state instanceof DetailViewState.Content ? ((DetailViewState.Content) state).currentIndex : 0}"
+                spaceImages="@{state instanceof DetailViewState.Content ? ((DetailViewState.Content) state).data : null}"/>
+
+
+        </FrameLayout>
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/scrim_top_down"/>
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:tint="@android:color/white"
+                android:layout_gravity="start"
+                android:background="?attr/selectableItemBackground"
+                android:src="@drawable/round_arrow_back_ios_24"
+                android:padding="16dp"/>
+        </FrameLayout>
 
     </FrameLayout>
+
 </layout>

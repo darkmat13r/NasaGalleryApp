@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.databinding.BindingAdapter
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.PagerSnapHelper
@@ -17,6 +18,7 @@ import com.nasa.gallery.mobile.data.model.SpaceImage
 import com.nasa.gallery.mobile.databinding.FragmentSpaceImageDetailBinding
 import com.nasa.gallery.mobile.presentation.ui.explore.ExploreAdapter
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
 
 @AndroidEntryPoint
 class SpaceImageDetailFragment : Fragment() {
@@ -35,6 +37,7 @@ class SpaceImageDetailFragment : Fragment() {
         sharedElementEnterTransition = TransitionInflater.from(requireContext())
             .inflateTransition(R.transition.image_transition)
 
+
     }
 
     override fun onCreateView(
@@ -43,7 +46,11 @@ class SpaceImageDetailFragment : Fragment() {
     ): View? {
         binding = FragmentSpaceImageDetailBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
+        binding.back.setOnClickListener {
+            findNavController().popBackStack()
+        }
         lifecycleScope.launchWhenStarted {
+           delay(1000)
             viewModel.state.collect{
                 binding.state = it
             }

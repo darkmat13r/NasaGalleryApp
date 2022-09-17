@@ -5,6 +5,8 @@ import androidx.core.app.ActivityCompat
 import com.google.gson.Gson
 import com.nasa.gallery.mobile.data.repository.ResourceSpaceRepository
 import com.nasa.gallery.mobile.data.repository.SpaceRepository
+import com.nasa.gallery.mobile.data.utils.AssetDataLoader
+import com.nasa.gallery.mobile.data.utils.DataLoader
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -17,16 +19,22 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
  class DataRepositoryModule {
 
-
     @Provides
     @Singleton
-    fun providesResourceRepository(@ApplicationContext context : Context, gson : Gson) : SpaceRepository{
-        return ResourceSpaceRepository(context, gson)
+    fun providesResourceRepository(dataLoader: DataLoader) : SpaceRepository{
+        return ResourceSpaceRepository(dataLoader)
     }
 
     @Provides
     @Singleton
     fun providesGson() : Gson{
         return Gson()
+    }
+
+
+    @Provides
+    @Singleton
+    fun providesDataLoader(@ApplicationContext context : Context, gson : Gson) : DataLoader{
+        return AssetDataLoader(context, gson)
     }
 }
