@@ -12,7 +12,8 @@ import com.nasa.gallery.mobile.presentation.ui.detail.SpaceImageDetailViewModel
 import com.nasa.gallery.mobile.presentation.ui.explore.ExploreViewModel
 import com.nasa.mobile.data.MainCoroutineRule
 import com.nasa.mobile.data.TestData
-import com.nasa.mobile.ui.explore.TestDataSource
+import com.nasa.mobile.ui.explore.TestLocalDataSource
+import com.nasa.mobile.ui.explore.TestRemoteDataSource
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
@@ -28,7 +29,8 @@ class DetailViewModelTest {
     @get:Rule
     var coroutineRule = MainCoroutineRule()
 
-    private val testDataSource = TestDataSource()
+    private val testDataSource = TestLocalDataSource()
+    private val testRemoteDataSource = TestRemoteDataSource()
 
 
     @Test
@@ -63,7 +65,7 @@ class DetailViewModelTest {
     fun createViewModel(savedStateHandle: SavedStateHandle) = SpaceImageDetailViewModel(
        savedStateHandle,
         GetSpaceImagesUseCase(
-            NasaSpaceImageRepository(testDataSource),
+            NasaSpaceImageRepository(testDataSource, testRemoteDataSource),
             coroutineRule.testDispatcher
         )
     )

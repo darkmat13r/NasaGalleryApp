@@ -1,4 +1,4 @@
-package com.nasa.mobile.ui.explore
+package com.nasa.mobile.data
 
 import com.nasa.gallery.mobile.data.model.SpaceImage
 import com.nasa.gallery.mobile.data.source.SpaceImageDataSource

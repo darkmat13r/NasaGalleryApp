@@ -44,9 +44,6 @@ android {
 
 dependencies {
     api(platform(project(":depconstraints")))
-    implementation("androidx.legacy:legacy-support-v4:1.0.0")
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.5.1")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1")
     kapt(platform(project(":depconstraints")))
     androidTestApi(platform(project(":depconstraints")))
 
@@ -99,6 +96,7 @@ dependencies {
     androidTestImplementation(Libs.RULES)
     androidTestImplementation(Libs.FRAGMENT_TEST)
     androidTestImplementation(Libs.TRUTH)
+    androidTestImplementation(Libs.COROUTINES_TEST)
     debugImplementation(Libs.FRAGMENT_TEST)
 
     // Local unit tests

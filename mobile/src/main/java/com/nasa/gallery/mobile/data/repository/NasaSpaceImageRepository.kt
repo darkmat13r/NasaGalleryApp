@@ -15,6 +15,10 @@ class NasaSpaceImageRepository @Inject constructor(
        try{
            return remoteDataSource.getImages()
        }catch(ioEx : IOException){
+           ioEx.printStackTrace()
+           return localDataSource.getImages()
+       }catch (ex : Exception){
+           ex.printStackTrace()
            return localDataSource.getImages()
        }
     }
