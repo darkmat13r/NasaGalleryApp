@@ -21,8 +21,9 @@ val lifecycle = "2.4.1"
 val material = "1.8.0-alpha01"
 val mockito = "3.3.1"
 val mockitoKotlin = "1.5.0"
-val okhttp = "3.10.0"
-val okio = "1.14.0"
+val retrofit = "2.9.0"
+val okhttp = "4.10.0"
+val gsonConverter = ""
 val pageIndicator = "1.3.0"
 val room = "2.4.2"
 val rules = "1.1.1"
@@ -30,6 +31,7 @@ val runner = "1.2.0"
 val viewpager2 = "1.0.0"
 val uiAutomator = "2.2.0"
 val multidex = "2.0.1"
+val truth = "1.1.3"
 
 dependencies {
     constraints {
@@ -51,6 +53,7 @@ dependencies {
         api("${Libs.HILT_TESTING}:$hilt")
         api("${Libs.JUNIT}:$junit")
         api("${Libs.EXT_JUNIT}:$junitExt")
+        api("${Libs.TRUTH}:$truth")
         api("${Libs.KOTLIN_STDLIB}:${Versions.KOTLIN}")
         api("${Libs.LIFECYCLE_COMPILER}:$lifecycle")
         api("${Libs.LIFECYCLE_LIVE_DATA_KTX}:$lifecycle")
@@ -64,9 +67,9 @@ dependencies {
         api("${Libs.ROOM_KTX}:$room")
         api("${Libs.ROOM_RUNTIME}:$room")
         api("${Libs.ROOM_COMPILER}:$room")
-        api("${Libs.OKHTTP}:$okhttp")
         api("${Libs.OKHTTP_LOGGING_INTERCEPTOR}:$okhttp")
-        api("${Libs.OKIO}:$okio")
+        api("${Libs.RETROFIT}:$retrofit")
+        api("${Libs.GSON_CONVERTER}:$retrofit")
         api("${Libs.INK_PAGE_INDICATOR}:$pageIndicator")
         api("${Libs.RULES}:$rules")
         api("${Libs.RUNNER}:$runner")

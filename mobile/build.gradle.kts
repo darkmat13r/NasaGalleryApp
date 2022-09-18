@@ -17,7 +17,7 @@ android {
         versionCode = Versions.versionCodeMobile
         versionName = Versions.versionName
         multiDexEnabled = true
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "com.nasa.mobile.CustomTestRunner"
     }
 
     buildTypes {
@@ -52,6 +52,11 @@ dependencies {
 
     implementation(Libs.CORE_KTX)
 
+    //Networking
+    implementation(Libs.GSON_CONVERTER)
+    implementation(Libs.RETROFIT)
+    implementation(Libs.OKHTTP_LOGGING_INTERCEPTOR)
+
     // Multidex
     implementation(Libs.MULTIDEX)
 
@@ -69,11 +74,6 @@ dependencies {
     testImplementation(Libs.ARCH_TESTING)
     implementation(Libs.NAVIGATION_FRAGMENT_KTX)
     implementation(Libs.NAVIGATION_UI_KTX)
-    implementation(Libs.ROOM_KTX)
-    implementation(Libs.ROOM_RUNTIME)
-    kapt(Libs.ROOM_COMPILER)
-    testImplementation(Libs.ROOM_KTX)
-    testImplementation(Libs.ROOM_RUNTIME)
 
     // Dagger Hilt
     implementation(Libs.HILT_ANDROID)
@@ -95,12 +95,15 @@ dependencies {
     androidTestImplementation(Libs.RUNNER)
     androidTestImplementation(Libs.RULES)
     androidTestImplementation(Libs.FRAGMENT_TEST)
+    androidTestImplementation(Libs.TRUTH)
     debugImplementation(Libs.FRAGMENT_TEST)
 
     // Local unit tests
     testImplementation(Libs.JUNIT)
     testImplementation(Libs.MOCKITO_CORE)
     testImplementation(Libs.MOCKITO_KOTLIN)
+    testImplementation(Libs.TRUTH)
+    testImplementation(Libs.COROUTINES_TEST)
 
     // Solve conflicts with gson. DataBinding is using an old version.
     implementation(Libs.GSON)

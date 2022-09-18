@@ -6,9 +6,9 @@ import androidx.lifecycle.viewModelScope
 import com.nasa.gallery.mobile.data.model.SpaceImage
 import com.nasa.gallery.mobile.domain.explore.GetSpaceImagesUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -21,14 +21,24 @@ class SpaceImageDetailViewModel
 
     private val initialImageUrl = savedStateHandle.get<String>(SpaceImage::class.java.simpleName)
     private val _state = MutableStateFlow<DetailViewState>(
-        DetailViewState.InitialImage(
-            initialImageUrl ?: throw Exception("Please pass initial image url")
-        )
+        DetailViewState.Loading
     )
 
     val state : StateFlow<DetailViewState> = _state
 
     init {
+        viewModelScope.launch {
+            _state.value = initialImageUrl?.let {
+                DetailViewState.InitialImage(
+                    it
+                )
+            }?:run{
+                DetailViewState.Error("Image is not selected")
+            }
+        }
+    }
+
+    fun loadSpaceImages(){
         viewModelScope.launch {
             getSpaceImagesUseCase().collect {
                 when(it){

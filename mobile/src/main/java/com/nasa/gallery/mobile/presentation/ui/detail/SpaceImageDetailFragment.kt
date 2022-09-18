@@ -49,8 +49,8 @@ class SpaceImageDetailFragment : Fragment() {
         binding.back.setOnClickListener {
             findNavController().popBackStack()
         }
+        viewModel.loadSpaceImages()
         lifecycleScope.launchWhenStarted {
-           delay(1000)
             viewModel.state.collect{
                 binding.state = it
             }
