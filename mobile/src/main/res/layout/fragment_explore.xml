@@ -1,16 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="com.nasa.mobile.ui.explore.ExploreFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/list"
+    <data>
+        <import type="com.nasa.gallery.mobile.result.Result"/>
+        <import type="java.util.List"/>
+        <import type="com.nasa.gallery.mobile.data.model.SpaceImage"/>
+        <import type="com.nasa.gallery.mobile.presentation.ui.explore.ExploreViewModel.ExploreState"/>
+        <variable
+            name="adapter"
+            type="com.nasa.gallery.mobile.presentation.ui.explore.ExploreAdapter" />
+        <variable
+            name="state"
+            type="ExploreState" />
+        <variable
+            name="viewModel"
+            type="com.nasa.gallery.mobile.presentation.ui.explore.ExploreViewModel" />
+        <variable
+            name="testString"
+            type="String" />
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:spanCount="2"
-        app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
-        />
-</FrameLayout>
+        android:layout_height="match_parent">
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fitsSystemWindows="true">
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="16dp">
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/nasa_logo"/>
+            </FrameLayout>
+
+        </com.google.android.material.appbar.AppBarLayout>
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+            android:fillViewport="true">
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="16dp"
+                tools:context=".presentation.ui.explore.ExploreFragment">
+                <include
+                    show="@{state instanceof ExploreState.Error}"
+                    app:indicatorColor="@android:color/white"
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="center"
+                    message="@{(state instanceof ExploreState.Error)? (( ExploreState.Error)state).message : null}"
+                    layout="@layout/empty_state_error"
+                    android:layout_height="wrap_content"/>
+                <include
+                    show="@{state instanceof ExploreState.Loading}"
+                    app:indicatorColor="@android:color/white"
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="center"
+                    layout="@layout/shimmer_layout"
+                    android:layout_height="wrap_content"/>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/list"
+                    spaceImages="@{state instanceof ExploreState.Content ? ((ExploreState.Content) state).data : null}"
+                    exploreAdapter="@{adapter}"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    app:spanCount="2"
+                    android:layoutAnimation="@anim/layout_animation"
+                    tools:listitem="@layout/item_explore"
+                    app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+        </androidx.core.widget.NestedScrollView>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</layout>
