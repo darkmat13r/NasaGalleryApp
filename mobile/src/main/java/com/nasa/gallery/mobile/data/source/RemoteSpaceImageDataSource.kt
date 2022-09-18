@@ -7,7 +7,7 @@ import javax.inject.Inject
 class RemoteSpaceImageDataSource @Inject constructor(
    private val nasaService: NasaService
 ) : SpaceImageDataSource  {
-    override fun getImages(): List<SpaceImage> {
+    override suspend fun getImages(): List<SpaceImage> {
         return nasaService.getImages()
     }
 }

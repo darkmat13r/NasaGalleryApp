@@ -52,6 +52,9 @@ dependencies {
 
     implementation(Libs.CORE_KTX)
 
+    //Shimmer
+    implementation(Libs.SHIMMER)
+
     //Networking
     implementation(Libs.GSON_CONVERTER)
     implementation(Libs.RETROFIT)

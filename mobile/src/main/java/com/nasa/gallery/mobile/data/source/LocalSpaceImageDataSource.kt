@@ -8,7 +8,7 @@ import javax.inject.Inject
 class LocalSpaceImageDataSource @Inject constructor(
     private val assetDataLoader: DataLoader,
 ) : SpaceImageDataSource {
-    override fun getImages(): List<SpaceImage> {
+    override suspend fun getImages(): List<SpaceImage> {
         return assetDataLoader.read<List<SpaceImage>>(
             "data_source/gallery.json",
             object : TypeToken<List<SpaceImage>>() {}.type

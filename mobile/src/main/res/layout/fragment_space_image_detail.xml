@@ -29,10 +29,12 @@
             tools:context=".presentation.ui.detail.SpaceImageDetailFragment">
 
             <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/initialImage"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:scaleType="centerCrop"
                 android:loadFromUrl="@{state instanceof DetailViewState.InitialImage ? ((DetailViewState.InitialImage) state).url : null}"
-                android:transitionName="@string/transition_space_image"/>
+                />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/list"

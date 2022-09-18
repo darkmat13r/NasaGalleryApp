@@ -43,7 +43,7 @@ class ExploreFragment : Fragment() {
         mExploreAdapter = ExploreAdapter().apply {
             onSelect = { spaceImage, imageView ->
                 findNavController().navigate(R.id.nav_space_detail_fragment, bundleOf( SpaceImage::class.java.simpleName to spaceImage.url), null, FragmentNavigatorExtras(
-                    imageView to getString(R.string.transition_space_image)
+                    imageView to spaceImage.url
                 ))
             }
         }

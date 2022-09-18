@@ -25,7 +25,7 @@ class SpaceImageDetailViewModel
     )
 
     val state : StateFlow<DetailViewState> = _state
-
+    val initialImage = initialImageUrl
     init {
         viewModelScope.launch {
             _state.value = initialImageUrl?.let {

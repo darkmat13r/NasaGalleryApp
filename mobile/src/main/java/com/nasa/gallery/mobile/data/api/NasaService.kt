@@ -6,5 +6,5 @@ import retrofit2.http.GET
 interface NasaService {
 
     @GET("api")
-    fun getImages() : List<SpaceImage>
+    suspend fun getImages() : List<SpaceImage>
 }

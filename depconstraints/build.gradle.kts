@@ -32,6 +32,7 @@ val viewpager2 = "1.0.0"
 val uiAutomator = "2.2.0"
 val multidex = "2.0.1"
 val truth = "1.1.3"
+val shimmer = "0.5.0"
 
 dependencies {
     constraints {
@@ -76,6 +77,7 @@ dependencies {
         api("${Libs.UI_AUTOMATOR}:$uiAutomator")
         api("${Libs.VIEWPAGER2}:$viewpager2")
         api("${Libs.MULTIDEX}:$multidex")
+        api("${Libs.SHIMMER}:$shimmer")
     }
 }
 

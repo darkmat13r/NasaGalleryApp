@@ -36,7 +36,11 @@ class DetailAdapter : ListAdapter<SpaceImage, DetailAdapter.ViewHolder>(
 
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.binding.spaceImage = currentList[position]
+        currentList[position]?.let{
+            holder.binding.spaceImage = it
+            holder.binding.image.transitionName = it.url
+        }
+
     }
 
     fun setItems(spaceImages: List<SpaceImage>){

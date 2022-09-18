@@ -9,6 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:name=".NasaGalleryApplication"
+        android:usesCleartextTraffic="true"
         android:theme="@style/Theme.NasaGallery">
         <activity
             android:name=".presentation.ui.main.MainActivity"

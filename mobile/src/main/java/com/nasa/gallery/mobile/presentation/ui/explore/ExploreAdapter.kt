@@ -35,12 +35,16 @@ class ExploreAdapter() : ListAdapter<SpaceImage, ExploreAdapter.ViewHolder>(Expl
 
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.binding.imageUrl = currentList[position].url
-        holder.binding.image.setOnClickListener {
-            if(::onSelect.isInitialized){
-                onSelect(currentList[position], holder.binding.image)
+        currentList[position]?.let { spaceImage ->
+            holder.binding.imageUrl = spaceImage.url
+                    holder.binding.image.transitionName = spaceImage.url
+            holder.binding.image.setOnClickListener {
+                if(::onSelect.isInitialized){
+                    onSelect(spaceImage, holder.binding.image)
+                }
             }
         }
+
     }
 
     fun setItems(spaceImages: List<SpaceImage>){

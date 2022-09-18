@@ -43,4 +43,5 @@ object Libs {
     const val UI_AUTOMATOR = "androidx.test.uiautomator:uiautomator"
     const val VIEWPAGER2 = "androidx.viewpager2:viewpager2"
     const val MULTIDEX = "androidx.multidex:multidex"
+    const val SHIMMER = "com.facebook.shimmer:shimmer"
 }

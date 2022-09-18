@@ -55,11 +55,20 @@
                 android:orientation="vertical"
                 android:padding="16dp"
                 tools:context=".presentation.ui.explore.ExploreFragment">
-                <ProgressBar
+                <include
+                    show="@{state instanceof ExploreState.Error}"
+                    app:indicatorColor="@android:color/white"
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="center"
+                    message="@{(state instanceof ExploreState.Error)? (( ExploreState.Error)state).message : null}"
+                    layout="@layout/empty_state_error"
+                    android:layout_height="wrap_content"/>
+                <include
                     show="@{state instanceof ExploreState.Loading}"
                     app:indicatorColor="@android:color/white"
                     android:layout_width="wrap_content"
                     android:layout_gravity="center"
+                    layout="@layout/shimmer_layout"
                     android:layout_height="wrap_content"/>
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/list"
